@@ -21,13 +21,12 @@ public class Grupp1testApplication {
     public CommandLineRunner demo(UserRepo userRepo) {
         return (args) -> {
 
-            Users user1 = new Users("Kalle", "dawfsfgfvd");
-            Users user2 = new Users("Adam", "fmiesog8314");
-            Users user3 = new Users("Fia", "12345678");
-
             SecurityConfig b = new SecurityConfig();
-            UserService userService = new UserService(b.passwordEncoder());
-            userService.registerUser(user1.getName(),user1.getPassword());
+
+            b.passwordEncoder().encode("dawfsfgfvd");
+            Users user1 = new Users("Kalle", b.passwordEncoder().encode("dawfsfgfvd"));
+            Users user2 = new Users("Adam", b.passwordEncoder().encode("fmiesog8314"));
+            Users user3 = new Users("Fia", b.passwordEncoder().encode("12345678"));
 
             userRepo.save(user1);
             userRepo.save(user2);
