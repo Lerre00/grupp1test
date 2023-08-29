@@ -3,14 +3,13 @@ package com.example.grupp1test.Controller;
 
 import com.example.grupp1test.Models.Users;
 import com.example.grupp1test.Repositories.UserRepo;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.grupp1test.SecurityConfig;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@org.springframework.stereotype.Controller
 @RequestMapping
 public class Controller {
 
@@ -25,5 +24,23 @@ public class Controller {
         return userRepo.findAll();
     }
 
+    @PostMapping("login")
+    public String logIn(Users user, Model model){
+            Users dbUser = userRepo.findByName(user.getName());
+            SecurityConfig securityConfig = new SecurityConfig();
+
+            if (dbUser != null && securityConfig.passwordEncoder().matches(user.getPassword(), dbUser.getPassword())) {
+                model.addAttribute("name", user.getName());
+                model.addAttribute("message", "You're logged in!");
+                return "log-in-validator";
+            } else {
+                model.addAttribute("message", "Log in failed!");
+                return "log-in-validator";
+            }
+    }
+    @RequestMapping("home")
+    public String homePage(){
+        return "log-in";
+    }
 
 }
