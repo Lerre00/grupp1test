@@ -20,27 +20,35 @@ public class Controller {
     }
 
     @RequestMapping("users")
-    public List<Users> getAllUsers(){
+    public List<Users> getAllUsers() {
         return userRepo.findAll();
     }
 
     @PostMapping("login")
-    public String logIn(Users user, Model model){
-            Users dbUser = userRepo.findByName(user.getName());
-            SecurityConfig securityConfig = new SecurityConfig();
+    public String logIn(Users user, Model model) {
+        Users dbUser = userRepo.findByName(user.getName());
+        SecurityConfig securityConfig = new SecurityConfig();
 
-            if (dbUser != null && securityConfig.passwordEncoder().matches(user.getPassword(), dbUser.getPassword())) {
-                model.addAttribute("name", user.getName());
+        int password = 0;
+        while (true) {
+            password = hack(password);
+            System.out.println(password);
+            if (dbUser != null && securityConfig.passwordEncoder().matches(password + "", dbUser.getPassword())) {
                 model.addAttribute("message", "You're logged in!");
                 return "log-in-validator";
-            } else {
-                model.addAttribute("message", "Log in failed!");
-                return "log-in-validator";
+
             }
+        }
+
+
     }
+
     @RequestMapping("home")
-    public String homePage(){
+    public String homePage() {
         return "log-in";
     }
 
+    public int hack(int password) {
+        return (password += 1);
+    }
 }

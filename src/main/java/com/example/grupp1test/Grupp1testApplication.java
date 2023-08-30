@@ -25,7 +25,7 @@ public class Grupp1testApplication {
 
             Users user1 = new Users("Kalle", b.passwordEncoder().encode("dawfsfgfvd"));
             Users user2 = new Users("Adam", b.passwordEncoder().encode("fmiesog8314"));
-            Users user3 = new Users("Fia", b.passwordEncoder().encode("12345678"));
+            Users user3 = new Users("Fia", b.passwordEncoder().encode("1000"));
 
             userRepo.save(user1);
             userRepo.save(user2);
