@@ -23,7 +23,7 @@ public class Grupp1testApplication {
 
             SecurityConfig b = new SecurityConfig();
 
-            Users user1 = new Users("Kalle", b.passwordEncoder().encode("dawfsfgfvd"));
+            Users user1 = new Users("Kalle", b.passwordEncoder().encode("asdfghjk"));
             Users user2 = new Users("Adam", b.passwordEncoder().encode("fmiesog8314"));
             Users user3 = new Users("Fia", b.passwordEncoder().encode("1000"));
 
