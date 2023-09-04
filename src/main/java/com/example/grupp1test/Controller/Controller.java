@@ -32,7 +32,6 @@ public class Controller {
         int password = 0;
         while (true) {
             password = hack(password);
-            System.out.println(password);
             if (dbUser != null && securityConfig.passwordEncoder().matches(password + "", dbUser.getPassword())) {
                 model.addAttribute("message", "You're logged in!");
                 return "log-in-validator";
